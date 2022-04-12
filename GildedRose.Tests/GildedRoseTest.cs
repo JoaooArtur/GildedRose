@@ -8,15 +8,24 @@ namespace GildedRose.Tests
 {
     public class GildedRoseTest
     {
+        #region Setup
+
+        private static IList<Item> SetupItem(string name,int sellIn, int quality)
+        {
+            return new List<Item> { new Item { Name = name, SellIn = sellIn, Quality = quality } };
+        }
+
+        #endregion
+
         #region Itens Normais
 
         [Fact]
         [Trait("Item", "Normal")]
         [Description("Quality abaixa quando SellIn diminui.")]
-        public void ItemNormal_QualityDeveAbaixar_QuandoSellInDiminuir()
+        public void NormalItem_QualityShouldDecrease_WhenSellInAproaches()
         {
             //Arrange
-            IList<Item> Items = new List<Item> { new Item { Name = "foo", SellIn = 5, Quality = 10 } };
+            IList<Item> Items = SetupItem("foo", 5, 10);
             GildedRose app = new GildedRose(Items);
 
             //Act
@@ -29,10 +38,10 @@ namespace GildedRose.Tests
         [Fact]
         [Trait("Item", "Normal")]
         [Description("Quality nunca passa de 0 quando SellIn diminui.")]
-        public void ItemNormal_QualityNuncaNegativa_QuandoSellInDiminuir()
+        public void NormalItem_QualityShouldNeverBeNegative_WhenSellInAproaches()
         {
             //Arrange
-            IList<Item> Items = new List<Item> { new Item { Name = "foo", SellIn = 5, Quality = 0 } };
+            IList<Item> Items = SetupItem("foo", 5, 0);
             GildedRose app = new GildedRose(Items);
 
             //Act
@@ -45,10 +54,10 @@ namespace GildedRose.Tests
         [Fact]
         [Trait("Item", "Normal")]
         [Description("Quality abaixa 2 vezes mais quando SellIn ja tiver passado.")]
-        public void ItemNormal_QualityDeveAbaixar2Vezes_QuandoSellInPassar()
+        public void NormalItem_QualityShouldDecrease2x_WhenSellInHasPassed()
         {
             //Arrange
-            IList<Item> Items = new List<Item> { new Item { Name = "foo", SellIn = -1, Quality = 10 } };
+            IList<Item> Items = SetupItem("foo", -1, 10);
             GildedRose app = new GildedRose(Items);
 
             //Act
@@ -61,10 +70,10 @@ namespace GildedRose.Tests
         [Fact]
         [Trait("Item", "Normal")]
         [Description("Quality nunca passa de 0 quando SellIn ja tiver passado.")]
-        public void ItemNormal_QualityNuncaNegativa_QuandoSellInPassar()
+        public void NormalItem_QualityShouldNeverBeNegative_WhenSellInHasPassed()
         {
             //Arrange
-            IList<Item> Items = new List<Item> { new Item { Name = "foo", SellIn = -1, Quality = 0 } };
+            IList<Item> Items = SetupItem("foo", -1, 0);
             GildedRose app = new GildedRose(Items);
 
             //Act
@@ -81,10 +90,10 @@ namespace GildedRose.Tests
         [Fact]
         [Trait("Item", "Queijo Brie")]
         [Description("Quality aumenta quando SellIn diminui.")]
-        public void QueijoBrie_QualityDeveAumentar_QuandoSellInDiminuir()
+        public void AgedBrie_QualityShouldIncrease_WhenSellInAproaches()
         {
             //Arrange
-            IList<Item> Items = new List<Item> { new Item { Name = "Aged Brie", SellIn = 5, Quality = 10 } };
+            IList<Item> Items = SetupItem("Aged Brie", 5, 10);
             GildedRose app = new GildedRose(Items);
 
             //Act
@@ -97,10 +106,10 @@ namespace GildedRose.Tests
         [Fact]
         [Trait("Item", "Queijo Brie")]
         [Description("Quality nunca pode ser maior que 50 quando SellIn diminui.")]
-        public void QueijoBrie_QualityNuncaMaiorQue50_QuandoSellInDiminuir()
+        public void AgedBrie_QualityShouldNeverBeMoreThan50_WhenSellInAproaches()
         {
             //Arrange
-            IList<Item> Items = new List<Item> { new Item { Name = "Aged Brie", SellIn = 5, Quality = 50 } };
+            IList<Item> Items = SetupItem("Aged Brie", 5, 50);
             GildedRose app = new GildedRose(Items);
 
             //Act
@@ -113,10 +122,10 @@ namespace GildedRose.Tests
         [Fact]
         [Trait("Item", "Queijo Brie")]
         [Description("Quality aumenta 2 vezes mais quando SellIn ja tiver passado.")]
-        public void QueijoBrie_QualityDeveAumentar2Vezes_QuandoSellInPassar()
+        public void AgedBrie_QualityShouldIncrease2x_WhenSellInHasPassed()
         {
             //Arrange
-            IList<Item> Items = new List<Item> { new Item { Name = "Aged Brie", SellIn = -1, Quality = 10 } };
+            IList<Item> Items = SetupItem("Aged Brie", -1, 10);
             GildedRose app = new GildedRose(Items);
 
             //Act
@@ -129,10 +138,10 @@ namespace GildedRose.Tests
         [Fact]
         [Trait("Item", "Queijo Brie")]
         [Description("Quality nunca pode ser maior que 50 quando SellIn ja tiver passado.")]
-        public void QueijoBrie_QualityNuncaMaiorQue50_QuandoSellInPassar()
+        public void AgedBrie_QualityShouldNeverBeMoreThan50_WhenSellInHasPassed()
         {
             //Arrange
-            IList<Item> Items = new List<Item> { new Item { Name = "Aged Brie", SellIn = -1, Quality = 50 } };
+            IList<Item> Items = SetupItem("Aged Brie", -1, 50);
             GildedRose app = new GildedRose(Items);
 
             //Act
@@ -149,10 +158,10 @@ namespace GildedRose.Tests
         [Fact]
         [Trait("Item", "Acesso aos Bastidores")]
         [Description("Quality aumenta quando SellIn diminui.")]
-        public void AcessoAosBastidores_QualityDeveAumentar_QuandoSellInDiminuir()
+        public void BackStagePass_QualityShouldIncrease_WhenSellInAproaches()
         {
             //Arrange
-            IList<Item> Items = new List<Item> { new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 15, Quality = 10 } };
+            IList<Item> Items = SetupItem("Backstage passes to a TAFKAL80ETC concert", 15, 10);
             GildedRose app = new GildedRose(Items);
 
             //Act
@@ -165,10 +174,10 @@ namespace GildedRose.Tests
         [Fact]
         [Trait("Item", "Acesso aos Bastidores")]
         [Description("Quality nunca pode ser maior que 50 quando SellIn diminui.")]
-        public void AcessoAosBastidores_QualityNuncaMaiorQue50_QuandoSellInDiminuir()
+        public void BackStagePass_QualityShouldNeverBeMoreThan50_WhenSellInAproaches()
         {
             //Arrange
-            IList<Item> Items = new List<Item> { new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 15, Quality = 50 } };
+            IList<Item> Items = SetupItem("Backstage passes to a TAFKAL80ETC concert", 15, 50);
             GildedRose app = new GildedRose(Items);
 
             //Act
@@ -181,10 +190,10 @@ namespace GildedRose.Tests
         [Fact]
         [Trait("Item", "Acesso aos Bastidores")]
         [Description("Quality aumenta 2 vezes mais quando SellIn for menor que 10.")]
-        public void AcessoAosBastidores_QualityDeveAumentar2vezes_QuandoSellInForMenorQue10()
+        public void BackStagePass_QualityShouldIncrease2x_WhenSellInCloserThan10()
         {
             //Arrange
-            IList<Item> Items = new List<Item> { new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 9, Quality = 10 } };
+            IList<Item> Items = SetupItem("Backstage passes to a TAFKAL80ETC concert", 9, 10);
             GildedRose app = new GildedRose(Items);
 
             //Act
@@ -197,10 +206,10 @@ namespace GildedRose.Tests
         [Fact]
         [Trait("Item", "Acesso aos Bastidores")]
         [Description("Quality nunca pode ser maior que 50 quando SellIn for menor que 10.")]
-        public void AcessoAosBastidores_QualityNuncaMaiorQue50_QuandoSellInForMenorQue10()
+        public void BackStagePass_QualityShouldNeverBeMoreThan50_WhenSellInCloserThan10()
         {
             //Arrange
-            IList<Item> Items = new List<Item> { new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 9, Quality = 50 } };
+            IList<Item> Items = SetupItem("Backstage passes to a TAFKAL80ETC concert", 9, 50);
             GildedRose app = new GildedRose(Items);
 
             //Act
@@ -213,10 +222,10 @@ namespace GildedRose.Tests
         [Fact]
         [Trait("Item", "Acesso aos Bastidores")]
         [Description("Quality aumenta 3 vezes mais quando SellIn for menor que 5.")]
-        public void AcessoAosBastidores_QualityDeveAumentar3vezes_QuandoSellInForMenorQue5()
+        public void BackStagePass_QualityShouldIncrease3x_WhenSellInCloserThan5()
         {
             //Arrange
-            IList<Item> Items = new List<Item> { new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 4, Quality = 10 } };
+            IList<Item> Items = SetupItem("Backstage passes to a TAFKAL80ETC concert", 4, 10);
             GildedRose app = new GildedRose(Items);
 
             //Act
@@ -229,10 +238,10 @@ namespace GildedRose.Tests
         [Fact]
         [Trait("Item", "Acesso aos Bastidores")]
         [Description("Quality nunca pode ser maior que 50 quando SellIn for menor que 5.")]
-        public void AcessoAosBastidores_QualityNuncaMaiorQue50_QuandoSellInForMenorQue5()
+        public void BackStagePass_QualityShouldNeverBeMoreThan50_WhenSellInCloserThan5()
         {
             //Arrange
-            IList<Item> Items = new List<Item> { new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 4, Quality = 50 } };
+            IList<Item> Items = SetupItem("Backstage passes to a TAFKAL80ETC concert", 4, 50);
             GildedRose app = new GildedRose(Items);
 
             //Act
@@ -245,10 +254,10 @@ namespace GildedRose.Tests
         [Fact]
         [Trait("Item", "Acesso aos Bastidores")]
         [Description("Quality aumenta 3 vezes mais quando SellIn for menor que 5.")]
-        public void AcessoAosBastidores_QualityDeveZerar_QuandoSellInPassar()
+        public void BackStagePass_QualityShouldBe0_WhenSellInHasPassed()
         {
             //Arrange
-            IList<Item> Items = new List<Item> { new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = -1, Quality = 10 } };
+            IList<Item> Items = SetupItem("Backstage passes to a TAFKAL80ETC concert", -1, 10);
             GildedRose app = new GildedRose(Items);
 
             //Act
@@ -265,10 +274,10 @@ namespace GildedRose.Tests
         [Fact]
         [Trait("Item", "Sulfuras")]
         [Description("Quality não muda quando item for Sulfuras.")]
-        public void Sulfuras_QualityNaoDeveMudar_QuandoSellInDiminuir()
+        public void Sulfuras_QualityShouldntChange_WhenSellInAproaches()
         {
             //Arrange
-            IList<Item> Items = new List<Item> { new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 5, Quality = 80 } };
+            IList<Item> Items = SetupItem("Sulfuras, Hand of Ragnaros", 5, 80);
             GildedRose app = new GildedRose(Items);
 
             //Act
@@ -281,10 +290,10 @@ namespace GildedRose.Tests
         [Fact]
         [Trait("Item", "Sulfuras")]
         [Description("Quality não muda quando item for Sulfuras e SellIn ja tiver passado.")]
-        public void Sulfuras_QualityNaoDeveMudar_QuandoSellInPassar()
+        public void Sulfuras_QualityShouldntChange_WhenSellInHasPassed()
         {
             //Arrange
-            IList<Item> Items = new List<Item> { new Item { Name = ItemNames.Sulfuras, SellIn = -1, Quality = 80 } };
+            IList<Item> Items = SetupItem("Sulfuras, Hand of Ragnaros", -1, 80);
             GildedRose app = new GildedRose(Items);
 
             //Act
